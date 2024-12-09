@@ -237,7 +237,7 @@ function display:new(obj)
 	end
 
 	-- Display
-	-- layout:mount()
+	layout:mount()
 	obj:redraw()
 	obj:focus_range()
 
