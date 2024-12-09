@@ -146,7 +146,7 @@ function display:new(obj)
 		{
 			relative = "cursor",
 			position = "0%",
-			size = config.window.size,
+			size = 0.5,
 		},
 		nui_layout.Box({
 			-- nui_layout.Box(left_popup, { size = config.window.sections.left.size }),
