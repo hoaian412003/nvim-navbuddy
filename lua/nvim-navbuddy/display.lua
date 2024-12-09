@@ -144,7 +144,7 @@ function display:new(obj)
 
 	local layout = nui_layout(
 		{
-			relative = "buf",
+			relative = "win",
 			position = {
 				row = "0%",
 				col = "100%",
