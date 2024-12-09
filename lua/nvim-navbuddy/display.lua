@@ -83,6 +83,84 @@ function display:new(obj)
 	local config = obj.config
 
 	-- NUI elements
+	local left_popup = nui_popup({
+		focusable = false,
+		border = config.window.sections.left.border or ui.get_border_chars(config.window.border, "left"),
+		win_options = {
+			winhighlight = "Normal:NavbuddyNormalFloat,FloatBorder:NavbuddyFloatBorder",
+		},
+		buf_options = {
+			modifiable = false,
+		},
+	})
+
+	local mid_popup = nui_popup({
+		enter = true,
+		border = config.window.sections.mid.border or ui.get_border_chars(config.window.border, "mid"),
+		win_options = {
+			winhighlight = "Normal:NavbuddyNormalFloat,FloatBorder:NavbuddyFloatBorder",
+			scrolloff = config.window.scrolloff,
+		},
+		buf_options = {
+			modifiable = false,
+		},
+	})
+
+	local lsp_name = {
+		bottom = nui_text("[" .. obj.lsp_name .. "]", "NavbuddyFloatBorder"),
+		bottom_align = "right",
+	}
+
+	if
+		config.window.sections.right.border == "none"
+		or config.window.border == "none"
+		or config.window.sections.right.border == "shadow"
+		or config.window.border == "shadow"
+		or config.window.sections.right.border == "solid"
+		or config.window.border == "solid"
+	then
+		lsp_name = nil
+	end
+
+	local right_popup = nui_popup({
+		focusable = false,
+		border = {
+			style = config.window.sections.right.border or ui.get_border_chars(config.window.border, "right"),
+			text = lsp_name,
+		},
+		win_options = {
+			winhighlight = "Normal:NavbuddyNormalFloat,FloatBorder:NavbuddyFloatBorder",
+			scrolloff = 0,
+		},
+		buf_options = {
+			modifiable = false,
+		},
+	})
+
+	local layout = nui_layout(
+		{
+			relative = "editor",
+			position = config.window.position,
+			size = config.window.size,
+		},
+		nui_layout.Box({
+			nui_layout.Box(left_popup, { size = config.window.sections.left.size }),
+			nui_layout.Box(mid_popup, { size = config.window.sections.mid.size }),
+			nui_layout.Box(right_popup, { grow = 1 }),
+		}, { dir = "row" })
+	)
+
+	obj.layout = layout
+	obj.left = left_popup
+	obj.mid = mid_popup
+	obj.right = right_popup
+	obj.state = {
+		leaving_window_for_action = false,
+		leaving_window_for_reorientation = false,
+		closed = false,
+		-- user_gui_cursor = nil,
+		source_buffer_scrolloff = nil,
+	}
 
 	-- Set filetype
 	vim.api.nvim_buf_set_option(obj.mid.bufnr, "filetype", "Navbuddy")
@@ -159,7 +237,7 @@ function display:new(obj)
 	end
 
 	-- Display
-	layout:mount()
+	-- layout:mount()
 	obj:redraw()
 	obj:focus_range()
 
