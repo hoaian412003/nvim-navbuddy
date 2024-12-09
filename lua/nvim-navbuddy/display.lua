@@ -99,7 +99,9 @@ function display:new(obj)
 
 	local mid_popup = nui_popup({
 		enter = true,
-		border = config.window.sections.mid.border or ui.get_border_chars(config.window.border, "mid"),
+		border = {
+			style = "rounded",
+		},
 		win_options = {
 			winhighlight = "Normal:NavbuddyNormalFloat,FloatBorder:NavbuddyFloatBorder",
 			scrolloff = config.window.scrolloff,
