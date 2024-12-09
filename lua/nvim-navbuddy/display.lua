@@ -144,9 +144,12 @@ function display:new(obj)
 
 	local layout = nui_layout(
 		{
-			relative = "cursor",
-			position = "0%",
-			size = 0.5,
+			relative = "editor",
+			position = {
+				row = "0%",
+				col = "100%",
+			},
+			size = config.window.size,
 		},
 		nui_layout.Box({
 			-- nui_layout.Box(left_popup, { size = config.window.sections.left.size }),
