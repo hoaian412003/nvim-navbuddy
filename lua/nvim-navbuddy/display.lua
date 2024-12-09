@@ -24,6 +24,9 @@ local function clear_buffer(buf)
 end
 
 local function fill_buffer(buf, node, config)
+	if buf.winid == nil then
+		return
+	end
 	local cursor_pos = vim.api.nvim_win_get_cursor(buf.winid)
 	clear_buffer(buf)
 
