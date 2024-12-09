@@ -145,7 +145,7 @@ function display:new(obj)
 	local layout = nui_layout(
 		{
 			relative = "editor",
-			position = config.window.position,
+			position = "0%",
 			size = config.window.size,
 		},
 		nui_layout.Box({
