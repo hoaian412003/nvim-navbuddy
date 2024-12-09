@@ -9,6 +9,9 @@ local ui = require("nvim-navbuddy.ui")
 local ns = vim.api.nvim_create_namespace("nvim-navbuddy")
 
 local function clear_buffer(buf)
+	if buf.winid == nil then
+		return
+	end
 	vim.api.nvim_win_set_buf(buf.winid, buf.bufnr)
 
 	vim.api.nvim_win_set_option(buf.winid, "signcolumn", "no")
