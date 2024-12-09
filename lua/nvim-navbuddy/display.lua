@@ -332,6 +332,9 @@ function display:reorient(ro_win, reorient_method)
 end
 
 function display:show_preview()
+	if self.right.winid == nil then
+		return
+	end
 	vim.api.nvim_win_set_buf(self.right.winid, self.for_buf)
 
 	vim.api.nvim_win_set_option(
